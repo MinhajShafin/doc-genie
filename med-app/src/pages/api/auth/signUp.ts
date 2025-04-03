@@ -1,39 +1,47 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
-import clientPromise from "../../../lib/mongodb";
+import clientPromise from "@/lib/mongodb"; // Make sure this path is correct
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST")
-    return res.status(405).json({ error: "Method Not Allowed" });
-
-  const { email, password, role } = req.body;
-
-  if (!email || !password || !role) {
-    return res.status(400).json({ error: "All fields are required" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
   }
 
   try {
+    const { email, password, role } = req.body;
+
+    // Validate input
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
     const client = await clientPromise;
-    const db = client.db("doctor_appointment");
+    const db = client.db("yourDatabaseName"); // Change to your actual database name
+    const usersCollection = db.collection("users");
 
     // Check if user already exists
-    const existingUser = await db.collection("users").findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ error: "User already exists" });
+    const existingUser = await usersCollection.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
-    // Hash the password
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert new user
-    await db
-      .collection("users")
-      .insertOne({ email, password: hashedPassword, role });
+    // Save user in the database
+    await usersCollection.insertOne({
+      email,
+      password: hashedPassword,
+      role,
+      createdAt: new Date(),
+    });
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error("Signup Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 }
