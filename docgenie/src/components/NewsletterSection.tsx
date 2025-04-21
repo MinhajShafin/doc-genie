@@ -23,7 +23,7 @@ const NewsletterSection: React.FC = () => {
           <input
             type="email"
             placeholder="Enter your email"
-            className="flex-grow p-3 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="flex-grow p-3 text-black border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-teal-500"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

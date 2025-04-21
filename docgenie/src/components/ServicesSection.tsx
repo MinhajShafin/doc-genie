@@ -22,64 +22,53 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           className="text-teal-600 font-medium flex items-center hover:text-teal-700"
         >
           Learn more
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 ml-1"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
         </a>
       </div>
     </div>
   );
 };
-
+const img =
+  "https://img.pikbest.com/png-images/20241019/doctor-logo-vector-icon-illustration_10974092.png!sw800";
 const ServicesSection: React.FC = () => {
   const services = [
     {
       id: 1,
-      imageSrc: "/services/dental.jpg",
+      imageSrc: img,
       title: "Dental treatments",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
     },
     {
       id: 2,
-      imageSrc: "/services/bones.jpg",
+      imageSrc: img,
       title: "Bones treatments",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
     },
     {
       id: 3,
-      imageSrc: "/services/diagnosis.jpg",
+      imageSrc: img,
       title: "Diagnosis",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
     },
     {
       id: 4,
-      imageSrc: "/services/cardiology.jpg",
+      imageSrc: img,
       title: "Cardiology",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
     },
     {
       id: 5,
-      imageSrc: "/services/surgery.jpg",
+      imageSrc: img,
       title: "Surgery",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",
     },
     {
       id: 6,
-      imageSrc: "/services/eyecare.jpg",
+      imageSrc: img,
       title: "Eye care",
       description:
         "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm.",

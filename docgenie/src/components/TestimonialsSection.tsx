@@ -39,7 +39,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     </div>
   );
 };
-
+const demoAvatar =
+  "https://cdn-icons-png.freepik.com/256/7606/7606411.png?ga=GA1.1.1582286847.1745247463&semt=ais_hybrid";
 const TestimonialsSection: React.FC = () => {
   return (
     <section className="py-16 bg-gray-50">
@@ -58,17 +59,17 @@ const TestimonialsSection: React.FC = () => {
           <TestimonialCard
             rating={4}
             text="Slate helps you see how many more days you need to work to reach your financial goal."
-            avatarSrc="/testimonials/avatar1.jpg"
+            avatarSrc={demoAvatar}
           />
           <TestimonialCard
             rating={4}
             text="Slate helps you see how many more days you need to work to reach your financial goal."
-            avatarSrc="/testimonials/avatar2.jpg"
+            avatarSrc={demoAvatar}
           />
           <TestimonialCard
             rating={4}
             text="Slate helps you see how many more days you need to work to reach your financial goal."
-            avatarSrc="/testimonials/avatar3.jpg"
+            avatarSrc={demoAvatar}
           />
         </div>
       </div>

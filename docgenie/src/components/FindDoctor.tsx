@@ -38,7 +38,7 @@ const FindDoctor: React.FC = () => {
                 type="text"
                 name="name"
                 placeholder="Name"
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full text-black p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
                 value={searchParams.name}
                 onChange={handleChange}
               />
@@ -49,7 +49,7 @@ const FindDoctor: React.FC = () => {
                 type="text"
                 name="specialty"
                 placeholder="Speciality"
-                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full text-black p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
                 value={searchParams.specialty}
                 onChange={handleChange}
               />

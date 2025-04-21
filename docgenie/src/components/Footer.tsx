@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
               <img
-                src="/logo-white.svg"
+                src="https://img.freepik.com/free-vector/hospital-logo-design-vector-medical-cross_53876-136743.jpg?semt=ais_hybrid&w=740"
                 alt="Healthcare Logo"
                 className="h-8 w-auto"
               />

@@ -5,7 +5,11 @@ const Header: React.FC = () => {
     <header className="bg-white shadow-sm py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
-          <img src="/logo.svg" alt="Healthcare Logo" className="h-8 w-auto" />
+          <img
+            src="https://img.freepik.com/free-vector/hospital-logo-design-vector-medical-cross_53876-136743.jpg?semt=ais_hybrid&w=740"
+            alt="Healthcare Logo"
+            className="h-8 w-auto"
+          />
           <span className="ml-2 text-2xl font-bold">
             <span className="text-teal-600">Health</span>
             <span className="text-teal-400">care</span>
@@ -13,13 +17,10 @@ const Header: React.FC = () => {
         </div>
 
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-700 hover:text-teal-600">
+          <a href="#" className="text-teal-700 border-b-2 border-teal-600">
             Home
           </a>
-          <a
-            href="#services"
-            className="text-teal-600 border-b-2 border-teal-600"
-          >
+          <a href="#services" className="text-gray-600  hover:text-teal-600">
             Service
           </a>
           <a href="#" className="text-gray-700 hover:text-teal-600">
