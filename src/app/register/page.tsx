@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
@@ -11,15 +11,18 @@ export default function RegisterPage() {
   const [role, setRole] = useState("patient");
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token");
-  if (token) {
-    const user = JSON.parse(atob(token.split(".")[1]));
-    if (user.role === "doctor") {
-      router.push("/dashboard/doctor");
-    } else {
-      router.push("/dashboard/patient");
+  // ✅ Run localStorage + redirect only on the client
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = JSON.parse(atob(token.split(".")[1]));
+      if (user.role === "doctor") {
+        router.push("/dashboard/doctor");
+      } else {
+        router.push("/dashboard/patient");
+      }
     }
-  }
+  }, []);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,8 +42,18 @@ export default function RegisterPage() {
         return;
       }
 
-      localStorage.setItem("token", data.token);
-      router.push("/dashboard");
+      // ✅ Save token only on client
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", data.token);
+      }
+
+      // ✅ Redirect based on role
+      const user = JSON.parse(atob(data.token.split(".")[1]));
+      if (user.role === "doctor") {
+        router.push("/dashboard/doctor");
+      } else {
+        router.push("/dashboard/patient");
+      }
     } catch (err) {
       setError("Something went wrong. Please try again.");
     }
