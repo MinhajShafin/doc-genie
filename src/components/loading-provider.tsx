@@ -31,33 +31,30 @@ export default function LoadingProvider({
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
-    // Skip initial mount
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
 
-    // Start loading
     setIsLoading(true);
 
-    // Clear loading state after a short delay
-    timeoutId = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 200);
+    }, 300);
 
-    // Cleanup timeout on unmount or before next effect run
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      clearTimeout(timer);
+      setIsLoading(false);
     };
   }, [pathname, searchParams]);
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      {isLoading && <LoadingSpinner />}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 bg-white/80 backdrop-blur-sm transition-opacity duration-300">
+          <LoadingSpinner />
+        </div>
+      )}
       {children}
     </LoadingContext.Provider>
   );

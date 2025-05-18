@@ -85,17 +85,17 @@ const features = [
 // Testimonials data
 const testimonials = [
   {
-    name: "Jennifer K.",
+    name: "Amena Begum",
     text: "MediBook made finding a specialist and booking an appointment so simple. I was able to see a doctor within 24 hours!",
     avatar: "/api/placeholder/60/60",
   },
   {
-    name: "Robert T.",
+    name: "Ayesha Begum",
     text: "The ability to read verified reviews helped me find an amazing pediatrician for my children. Highly recommend this service!",
     avatar: "/api/placeholder/60/60",
   },
   {
-    name: "Sophia L.",
+    name: "Sana Begum",
     text: "I love the reminder system and the ease of rescheduling when needed. This platform has transformed how I manage healthcare.",
     avatar: "/api/placeholder/60/60",
   },

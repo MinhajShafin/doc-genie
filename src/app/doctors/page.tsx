@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   Search,
   Filter,
@@ -16,7 +17,12 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import BookingModal from "@/components/BookingModal";
+
+// Dynamically import heavy components
+const BookingModal = dynamic(() => import("@/components/BookingModal"), {
+  loading: () => <div className="animate-pulse">Loading...</div>,
+  ssr: false,
+});
 
 // Mock category data
 const categories = [

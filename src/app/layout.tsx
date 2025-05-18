@@ -10,7 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col h-screen bg-gray-100">
         <LoadingProvider>
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow page-transition-enter">{children}</main>
         </LoadingProvider>
       </body>
     </html>

@@ -1,18 +1,39 @@
 "use client";
 
-import {
-  Container,
-  Typography,
-  Paper,
-  Box,
-  useTheme,
-  useMediaQuery,
-  Fade,
-  Grow,
-} from "@mui/material";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { Trophy, UserCog, Heart, Ambulance, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+
+// Dynamically import individual MUI components
+const Container = dynamic(() => import("@mui/material/Container"), {
+  loading: () => <div className="animate-pulse">Loading...</div>,
+  ssr: false,
+});
+
+const Typography = dynamic(() => import("@mui/material/Typography"), {
+  ssr: false,
+});
+
+const Paper = dynamic(() => import("@mui/material/Paper"), {
+  ssr: false,
+});
+
+const Box = dynamic(() => import("@mui/material/Box"), {
+  ssr: false,
+});
+
+const Fade = dynamic(() => import("@mui/material/Fade"), {
+  ssr: false,
+});
+
+const Grow = dynamic(() => import("@mui/material/Grow"), {
+  ssr: false,
+});
+
+// Import theme utilities directly since they're hooks
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const AboutPage = () => {
   const theme = useTheme();
@@ -58,17 +79,16 @@ const AboutPage = () => {
           >
             <Typography
               variant="h2"
-              component="h1"
               gutterBottom
               sx={{
                 fontWeight: 700,
-                background: "linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)",
+                background: "linear-gradient(45deg, #1976d2 30%, #21CBF3 90%)",
                 backgroundClip: "text",
                 textFillColor: "transparent",
-                mb: 2,
+                mb: 4,
               }}
             >
-              About Us
+              About Doc-Genie
             </Typography>
             <Typography
               variant="h5"
