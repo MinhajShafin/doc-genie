@@ -1,6 +1,4 @@
 "use client";
-
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { Trophy, UserCog, Heart, Ambulance, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/navbar";
