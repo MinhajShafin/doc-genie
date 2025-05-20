@@ -22,7 +22,7 @@ const doctors = [
     specialty: "Cardiologist",
     rating: 4.9,
     reviews: 127,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available today",
   },
   {
@@ -31,7 +31,7 @@ const doctors = [
     specialty: "Dermatologist",
     rating: 4.8,
     reviews: 95,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available tomorrow",
   },
   {
@@ -40,7 +40,7 @@ const doctors = [
     specialty: "Pediatrician",
     rating: 5.0,
     reviews: 143,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available today",
   },
   {
@@ -49,7 +49,7 @@ const doctors = [
     specialty: "Orthopedic Surgeon",
     rating: 4.7,
     reviews: 89,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available in 2 days",
   },
 ];
@@ -87,17 +87,17 @@ const testimonials = [
   {
     name: "Amena Begum",
     text: "MediBook made finding a specialist and booking an appointment so simple. I was able to see a doctor within 24 hours!",
-    avatar: "/api/placeholder/60/60",
+    avatar: "/av2.png",
   },
   {
     name: "Ayesha Begum",
     text: "The ability to read verified reviews helped me find an amazing pediatrician for my children. Highly recommend this service!",
-    avatar: "/api/placeholder/60/60",
+    avatar: "/av2.png",
   },
   {
     name: "Sana Begum",
     text: "I love the reminder system and the ease of rescheduling when needed. This platform has transformed how I manage healthcare.",
-    avatar: "/api/placeholder/60/60",
+    avatar: "/av2.png",
   },
 ];
 

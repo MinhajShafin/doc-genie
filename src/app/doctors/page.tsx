@@ -14,6 +14,7 @@ import {
   Phone,
   Loader2,
   User,
+  Stethoscope,
 } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -50,7 +51,7 @@ const allDoctors = [
     categoryId: 1,
     rating: 4.9,
     reviews: 127,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available today",
     hospital: "City Medical Center",
     experience: "12 years",
@@ -63,7 +64,7 @@ const allDoctors = [
     categoryId: 2,
     rating: 4.8,
     reviews: 95,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available tomorrow",
     hospital: "Skin Health Institute",
     experience: "8 years",
@@ -76,7 +77,7 @@ const allDoctors = [
     categoryId: 3,
     rating: 5.0,
     reviews: 143,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available today",
     hospital: "Children's Hospital",
     experience: "15 years",
@@ -89,7 +90,7 @@ const allDoctors = [
     categoryId: 4,
     rating: 4.7,
     reviews: 89,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available in 2 days",
     hospital: "Joint & Spine Center",
     experience: "10 years",
@@ -102,7 +103,7 @@ const allDoctors = [
     categoryId: 5,
     rating: 4.9,
     reviews: 112,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available today",
     hospital: "Brain & Nerve Institute",
     experience: "14 years",
@@ -115,7 +116,7 @@ const allDoctors = [
     categoryId: 1,
     rating: 4.8,
     reviews: 78,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available tomorrow",
     hospital: "Heart Center",
     experience: "9 years",
@@ -128,7 +129,7 @@ const allDoctors = [
     categoryId: 2,
     rating: 4.7,
     reviews: 64,
-    image: "/api/placeholder/300/300",
+    image: "/av3.png",
     availability: "Available in 3 days",
     hospital: "Derma Care Clinic",
     experience: "7 years",
@@ -141,7 +142,7 @@ const allDoctors = [
     categoryId: 3,
     rating: 4.9,
     reviews: 105,
-    image: "/api/placeholder/300/300",
+    image: "/av1.png",
     availability: "Available today",
     hospital: "Kids Health Center",
     experience: "11 years",
@@ -358,6 +359,12 @@ export default function DoctorCategories() {
   const [isLoading, setIsLoading] = useState(true);
   const [specialty, setSpecialty] = useState("");
   const [location, setLocation] = useState("");
+  const [name, setName] = useState("");
+
+  // Add handleSearch function
+  const handleSearch = () => {
+    setSearchQuery(name);
+  };
 
   // Simulate loading state
   useEffect(() => {
@@ -439,33 +446,25 @@ export default function DoctorCategories() {
               <div className="bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
                   <div className="flex-1 relative">
-                    <select
+                    <input
+                      type="text"
+                      placeholder="Search by doctor's name"
                       className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      value={specialty}
-                      onChange={(e) => setSpecialty(e.target.value)}
-                    >
-                      <option value="">Select Specialty</option>
-                      {categories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.name}
-                        </option>
-                      ))}
-                    </select>
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          handleSearch();
+                        }
+                      }}
+                    />
                     <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   </div>
 
-                  <div className="flex-1 relative">
-                    <input
-                      type="text"
-                      placeholder="Enter your location"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  </div>
-
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md font-medium transition-colors duration-300 md:w-auto w-full">
+                  <button
+                    onClick={handleSearch}
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md font-medium transition-colors duration-300 md:w-auto w-full"
+                  >
                     Search Doctors
                   </button>
                 </div>
