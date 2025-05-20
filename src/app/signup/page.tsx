@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import SignupForm from "@/components/auth/SignupForm";
 
-export default function SignUpPage() {
+export default function SignupPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -44,68 +45,7 @@ export default function SignUpPage() {
             </div>
 
             <div className="p-6 sm:p-8">
-              <form className="space-y-5">
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="you@example.com"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="password"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      placeholder="••••••••"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="confirmPassword"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Confirm Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      placeholder="••••••••"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  Create Account
-                </button>
-              </form>
+              <SignupForm />
 
               {/* Social Login Options */}
               <div className="mt-6">
@@ -163,15 +103,17 @@ export default function SignUpPage() {
                 </div>
               </div>
 
-              <p className="text-center mt-6 text-gray-600">
-                Already have an account?{" "}
-                <Link
-                  href="/login"
-                  className="font-medium text-blue-600 hover:text-blue-800"
-                >
-                  Log in
-                </Link>
-              </p>
+              <div className="text-center mt-4">
+                <p className="text-sm text-gray-600">
+                  Already have an account?{" "}
+                  <Link
+                    href="/login"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Sign in
+                  </Link>
+                </p>
+              </div>
             </div>
           </motion.div>
 
