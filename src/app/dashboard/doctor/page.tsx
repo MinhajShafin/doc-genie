@@ -20,13 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  BarChart,
-  Calendar as CalendarIcon,
-  Clock,
-  Users,
-  Activity,
-} from "lucide-react";
+import { Calendar as CalendarIcon, Clock, Users, Activity } from "lucide-react";
 import { useAppointmentStore } from "@/lib/store";
 
 const DoctorDashboardPage = () => {
@@ -35,42 +29,43 @@ const DoctorDashboardPage = () => {
     (state) => state.updateAppointmentStatus
   );
 
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
+
+  // Filter appointments for today
+  const todayAppointments = appointments.filter((apt) => apt.date === today);
+
+  // Calculate stats based on real data
   const stats = [
     {
       title: "Total Patients",
       value: appointments.length.toString(),
       icon: Users,
-      trend: "+12.5%",
-      description: "From last month",
+      description: "Total appointments",
     },
     {
       title: "Appointments Today",
-      value: appointments
-        .filter((apt) => apt.date === new Date().toISOString().split("T")[0])
-        .length.toString(),
+      value: todayAppointments.length.toString(),
       icon: CalendarIcon,
-      trend: "+4.5%",
-      description: "From yesterday",
+      description: "Scheduled for today",
     },
     {
-      title: "Average Wait Time",
-      value: "14min",
+      title: "Pending Appointments",
+      value: appointments
+        .filter((apt) => apt.status === "Pending")
+        .length.toString(),
       icon: Clock,
-      trend: "-2.3%",
-      description: "From last week",
+      description: "Awaiting confirmation",
     },
     {
-      title: "Patient Satisfaction",
-      value: "94%",
+      title: "Confirmed Appointments",
+      value: appointments
+        .filter((apt) => apt.status === "Confirmed")
+        .length.toString(),
       icon: Activity,
-      trend: "+1.2%",
-      description: "From last month",
+      description: "Total confirmed",
     },
   ];
-
-  const todayAppointments = appointments.filter(
-    (apt) => apt.date === new Date().toISOString().split("T")[0]
-  );
 
   return (
     <>
@@ -113,7 +108,6 @@ const DoctorDashboardPage = () => {
                     <CardContent>
                       <div className="text-2xl font-bold">{stat.value}</div>
                       <p className="text-xs text-gray-500">
-                        <span className="text-green-500">{stat.trend}</span>{" "}
                         {stat.description}
                       </p>
                     </CardContent>
@@ -127,72 +121,85 @@ const DoctorDashboardPage = () => {
               {/* Appointments Table */}
               <Card className="col-span-4">
                 <CardHeader>
-                  <CardTitle>Today's Appointments</CardTitle>
+                  <CardTitle>All Appointments</CardTitle>
                   <CardDescription>
-                    You have {todayAppointments.length} appointments scheduled
-                    for today
+                    {appointments.length === 0
+                      ? "No appointments scheduled"
+                      : `Total of ${appointments.length} appointment${
+                          appointments.length === 1 ? "" : "s"
+                        }`}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Patient</TableHead>
-                        <TableHead>Time</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Action</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {todayAppointments.map((appointment) => (
-                        <TableRow key={appointment.id}>
-                          <TableCell className="flex items-center gap-2">
-                            <Avatar className="h-8 w-8">
-                              <AvatarImage
-                                src={appointment.avatar}
-                                alt={appointment.patient}
-                              />
-                              <AvatarFallback>
-                                {appointment.patient
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
-                              </AvatarFallback>
-                            </Avatar>
-                            {appointment.patient}
-                          </TableCell>
-                          <TableCell>{appointment.time}</TableCell>
-                          <TableCell>{appointment.type}</TableCell>
-                          <TableCell>
-                            <Badge
-                              variant={
-                                appointment.status === "Confirmed"
-                                  ? "default"
-                                  : "secondary"
-                              }
-                            >
-                              {appointment.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                updateAppointmentStatus(
-                                  appointment.id,
-                                  "Confirmed"
-                                )
-                              }
-                            >
-                              Confirm
-                            </Button>
-                          </TableCell>
+                  {appointments.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500">
+                      No appointments scheduled
+                    </div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Patient</TableHead>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Time</TableHead>
+                          <TableHead>Type</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Action</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {appointments.map((appointment) => (
+                          <TableRow key={appointment.id}>
+                            <TableCell className="flex items-center gap-2">
+                              <Avatar className="h-8 w-8">
+                                <AvatarImage
+                                  src={appointment.avatar}
+                                  alt={appointment.patient}
+                                />
+                                <AvatarFallback>
+                                  {appointment.patient
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
+                                </AvatarFallback>
+                              </Avatar>
+                              {appointment.patient}
+                            </TableCell>
+                            <TableCell>{appointment.date}</TableCell>
+                            <TableCell>{appointment.time}</TableCell>
+                            <TableCell>{appointment.type}</TableCell>
+                            <TableCell>
+                              <Badge
+                                variant={
+                                  appointment.status === "Confirmed"
+                                    ? "default"
+                                    : "secondary"
+                                }
+                              >
+                                {appointment.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              {appointment.status === "Pending" && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() =>
+                                    updateAppointmentStatus(
+                                      appointment.id,
+                                      "Confirmed"
+                                    )
+                                  }
+                                >
+                                  Confirm
+                                </Button>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
                 </CardContent>
               </Card>
 
