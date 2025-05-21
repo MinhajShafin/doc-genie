@@ -1,14 +1,41 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
-import { useAppointmentStore } from "@/lib/store";
 import { format } from "date-fns";
 import { CheckCircle2, Clock } from "lucide-react";
 
+interface Appointment {
+  _id: string;
+  patient: string;
+  time: string;
+  date: string;
+  type: string;
+  status: "Confirmed" | "Pending";
+  email: string;
+  phone: string;
+}
+
 export default function PatientDashboard() {
   const router = useRouter();
-  const appointments = useAppointmentStore((state) => state.appointments);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch("/api/bookings");
+        const data = await response.json();
+        setAppointments(data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   // Sort appointments by date and time
   const sortedAppointments = [...appointments].sort((a, b) => {
@@ -29,6 +56,19 @@ export default function PatientDashboard() {
     const dateB = new Date(`${b.date}T${b.time}`);
     return dateB.getTime() - dateA.getTime();
   })[0];
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="p-6 max-w-7xl mx-auto">
+          <div className="flex items-center justify-center h-[50vh]">
+            <div className="text-gray-600">Loading appointments...</div>
+          </div>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
@@ -92,7 +132,7 @@ export default function PatientDashboard() {
                 {upcomingAppointments.length > 0 ? (
                   upcomingAppointments.map((appointment) => (
                     <div
-                      key={appointment.id}
+                      key={appointment._id}
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                     >
                       <div className="flex items-center space-x-4">
