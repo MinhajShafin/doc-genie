@@ -1,36 +1,25 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
-import { User, Lock, EyeOff, Eye, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import LoginForm from "@/components/auth/LoginForm";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleLogin = () => {
-    // Login logic would go here
-    console.log("Logging in with:", email, password);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm py-4">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
+      <header className="py-4 bg-white shadow-sm">
+        <div className="container px-4 mx-auto">
+          <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <span className="text-blue-600 text-2xl font-bold">
+              <span className="text-2xl font-bold text-blue-600">
                 Doc-Genie
               </span>
             </Link>
             <Link
               href="/"
-              className="text-gray-600 hover:text-blue-600 flex items-center text-sm font-medium"
+              className="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600"
             >
-              <ArrowLeft className="h-4 w-4 mr-1" />
+              <ArrowLeft className="w-4 h-4 mr-1" />
               Back to Home
             </Link>
           </div>
@@ -38,29 +27,34 @@ export default function LoginPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md">
+      <main className="flex items-center justify-center flex-grow px-4 py-12">
+        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+          <h2 className="mt-2 text-2xl font-bold text-center text-gray-800">
+            Sign in to your account
+          </h2>
+
+          {/* Login Form Component */}
           <LoginForm />
 
           {/* Social Login Options */}
-          <div className="mt-6">
+          <div className="mt-2">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+                <span className="px-2 text-gray-500 bg-white">
                   Or continue with
                 </span>
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 mt-6">
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -84,10 +78,10 @@ export default function LoginPage() {
 
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <svg
-                  className="h-5 w-5 mr-2 text-blue-800"
+                  className="w-5 h-5 mr-2 text-blue-800"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -99,7 +93,7 @@ export default function LoginPage() {
           </div>
 
           {/* Sign Up Link */}
-          <div className="text-center mt-4">
+          <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{" "}
               <Link
@@ -114,9 +108,9 @@ export default function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white py-4 border-t border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-sm text-gray-500">
+      <footer className="py-4 bg-white border-t border-gray-200">
+        <div className="container px-4 mx-auto">
+          <div className="text-sm text-center text-gray-500">
             <p>&copy; 2025 Doc-Genie. All rights reserved.</p>
             <div className="mt-2 space-x-4">
               <Link href="/privacy" className="hover:text-blue-600">
