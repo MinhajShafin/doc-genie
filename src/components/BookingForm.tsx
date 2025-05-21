@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useAppointmentStore } from "@/lib/store";
 
 interface BookingFormData {
   date: string;
@@ -24,7 +23,6 @@ interface BookingFormProps {
 }
 
 export default function BookingForm({ onCloseAction }: BookingFormProps) {
-  const addAppointment = useAppointmentStore((state) => state.addAppointment);
   const [formData, setFormData] = useState<BookingFormData>({
     date: "",
     time: "",
@@ -63,15 +61,24 @@ export default function BookingForm({ onCloseAction }: BookingFormProps) {
 
     setIsSubmitting(true);
     try {
-      // Add appointment to store
-      addAppointment({
-        patient: formData.name,
-        date: formData.date,
-        time: formData.time,
-        type: "Consultation", // Default type
-        email: formData.email,
-        phone: formData.phone,
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patient: formData.name,
+          date: formData.date,
+          time: formData.time,
+          type: "Consultation",
+          email: formData.email,
+          phone: formData.phone,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to book appointment");
+      }
 
       toast.success("Appointment booked successfully!");
       setFormData({

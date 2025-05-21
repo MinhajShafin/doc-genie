@@ -18,6 +18,7 @@ interface AppointmentStore {
   appointments: Appointment[];
   addAppointment: (appointment: Omit<Appointment, 'id' | 'status'>) => void;
   updateAppointmentStatus: (id: number, status: 'Confirmed' | 'Pending') => void;
+  deleteAppointment: (id: number) => void;
 }
 
 export const useAppointmentStore = create<AppointmentStore>()(
@@ -40,6 +41,10 @@ export const useAppointmentStore = create<AppointmentStore>()(
           appointments: state.appointments.map((appointment: Appointment) =>
             appointment.id === id ? { ...appointment, status } : appointment
           ),
+        })),
+      deleteAppointment: (id: number) =>
+        set((state: AppointmentStore) => ({
+          appointments: state.appointments.filter((appointment) => appointment.id !== id),
         })),
     }),
     {

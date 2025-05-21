@@ -30,8 +30,8 @@ export default function SignupForm() {
       // Store token in localStorage
       localStorage.setItem("token", data.token);
 
-      // Redirect to dashboard or home page
-      router.push("/dashboard");
+      // Redirect to home page
+      router.push("/home");
     } catch (err: any) {
       setError(err.message);
     }

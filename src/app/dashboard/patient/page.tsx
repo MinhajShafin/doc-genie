@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import { useAppointmentStore } from "@/lib/store";
 import { format } from "date-fns";
+import { CheckCircle2, Clock } from "lucide-react";
 
 export default function PatientDashboard() {
   const router = useRouter();
@@ -22,6 +23,13 @@ export default function PatientDashboard() {
     return appointmentDate >= new Date();
   });
 
+  // Get the most recent appointment for patient info
+  const mostRecentAppointment = [...appointments].sort((a, b) => {
+    const dateA = new Date(`${a.date}T${a.time}`);
+    const dateB = new Date(`${b.date}T${b.time}`);
+    return dateB.getTime() - dateA.getTime();
+  })[0];
+
   return (
     <>
       <Navbar />
@@ -32,7 +40,7 @@ export default function PatientDashboard() {
             Patient Dashboard
           </h1>
           <p className="text-gray-600 mt-2">
-            Welcome back, {upcomingAppointments[0]?.patient || "Patient"}
+            Welcome back, {mostRecentAppointment?.patient || "Patient"}
           </p>
         </div>
 
@@ -106,12 +114,17 @@ export default function PatientDashboard() {
                           <div className="text-sm text-gray-500">
                             Status:{" "}
                             <span
-                              className={`font-medium ${
+                              className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
                                 appointment.status === "Confirmed"
-                                  ? "text-green-600"
-                                  : "text-yellow-600"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-yellow-100 text-yellow-800"
                               }`}
                             >
+                              {appointment.status === "Confirmed" ? (
+                                <CheckCircle2 className="h-3 w-3" />
+                              ) : (
+                                <Clock className="h-3 w-3" />
+                              )}
                               {appointment.status}
                             </span>
                           </div>
@@ -151,32 +164,52 @@ export default function PatientDashboard() {
                 <div className="flex flex-col space-y-1">
                   <div className="text-sm text-gray-500">Full Name</div>
                   <div className="font-medium">
-                    {upcomingAppointments[0]?.patient || "Not set"}
+                    {mostRecentAppointment?.patient || "Not set"}
                   </div>
                 </div>
                 <div className="flex flex-col space-y-1">
                   <div className="text-sm text-gray-500">Email</div>
                   <div className="font-medium">
-                    {upcomingAppointments[0]?.email || "Not set"}
+                    {mostRecentAppointment?.email || "Not set"}
                   </div>
                 </div>
                 <div className="flex flex-col space-y-1">
                   <div className="text-sm text-gray-500">Phone</div>
                   <div className="font-medium">
-                    {upcomingAppointments[0]?.phone || "Not set"}
+                    {mostRecentAppointment?.phone || "Not set"}
                   </div>
                 </div>
                 <div className="flex flex-col space-y-1">
                   <div className="text-sm text-gray-500">Next Appointment</div>
                   <div className="font-medium">
-                    {upcomingAppointments[0]
-                      ? format(
-                          new Date(
-                            `${upcomingAppointments[0].date}T${upcomingAppointments[0].time}`
-                          ),
-                          "MMM d, yyyy"
-                        )
-                      : "No upcoming appointments"}
+                    {mostRecentAppointment ? (
+                      <div className="space-y-1">
+                        <div>
+                          {format(
+                            new Date(
+                              `${mostRecentAppointment.date}T${mostRecentAppointment.time}`
+                            ),
+                            "MMM d, yyyy"
+                          )}
+                        </div>
+                        <span
+                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
+                            mostRecentAppointment.status === "Confirmed"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {mostRecentAppointment.status === "Confirmed" ? (
+                            <CheckCircle2 className="h-3 w-3" />
+                          ) : (
+                            <Clock className="h-3 w-3" />
+                          )}
+                          {mostRecentAppointment.status}
+                        </span>
+                      </div>
+                    ) : (
+                      "No upcoming appointments"
+                    )}
                   </div>
                 </div>
                 <div className="pt-4 mt-4 border-t">
